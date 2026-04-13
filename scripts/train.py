@@ -8,8 +8,8 @@ from unsloth import FastLanguageModel
 from trl import SFTTrainer
 from transformers import TrainingArguments
 
-# CHỐNG SẬP SERVER: Ép tải model từ kho dự phòng ModelScope
-os.environ['UNSLOTH_USE_MODELSCOPE'] = '1'
+# # CHỐNG SẬP SERVER: Ép tải model từ kho dự phòng ModelScope
+# os.environ['UNSLOTH_USE_MODELSCOPE'] = '1'
 
 prompt_template = """Dưới đây là tin nhắn của khách hàng. Hãy phân loại ý định (intent) của tin nhắn này.
 ### Tin nhắn:
@@ -37,8 +37,14 @@ if __name__ == "__main__":
     )
 
     model = FastLanguageModel.get_peft_model(
-        model, r = 16, target_modules = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-        lora_alpha = 16, lora_dropout = 0, bias = "none", use_gradient_checkpointing = "unsloth", random_state = 3407,
+        model,
+        r = 16, 
+        target_modules = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        lora_alpha = 16, 
+        lora_dropout = 0, 
+        bias = "none", 
+        use_gradient_checkpointing = "unsloth", 
+        random_state = 3407,
     )
     eos_token = tokenizer.eos_token
 
