@@ -1,6 +1,7 @@
 unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
-transformers
+transformers==4.45.2
+trl==0.11.4
 datasets
-trl
 pandas
 pyyaml
+scikit-learn

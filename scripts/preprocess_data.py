@@ -8,7 +8,8 @@ def main():
     os.makedirs("sample_data", exist_ok=True)
     
     # 1. Tải dataset gốc chuẩn từ Hugging Face
-    dataset = load_dataset("PolyAI/banking77", trust_remote_code=True)
+    # dataset = load_dataset("PolyAI/banking77", trust_remote_code=True)
+    dataset = load_dataset("banking77")
     
     # Lấy hàm map nhãn (từ số sang chữ, ví dụ: 0 -> card_arrival)
     int2str = dataset['train'].features['label'].int2str
