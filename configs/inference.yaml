@@ -1,0 +1,3 @@
+# Đường dẫn này trỏ tới thư mục chứa model sau khi train
+model_path: "outputs/banking_intent_model"
+max_seq_length: 256
