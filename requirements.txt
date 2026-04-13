@@ -5,3 +5,4 @@ datasets
 pandas
 pyyaml
 scikit-learn
+modelscope

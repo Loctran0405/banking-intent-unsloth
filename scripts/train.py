@@ -2,10 +2,14 @@ import yaml
 import argparse
 import pandas as pd
 import torch
+import os # THÊM THƯ VIỆN NÀY
 from datasets import Dataset
 from unsloth import FastLanguageModel
 from trl import SFTTrainer
 from transformers import TrainingArguments
+
+# CHỐNG SẬP SERVER: Ép tải model từ kho dự phòng ModelScope
+os.environ['UNSLOTH_USE_MODELSCOPE'] = '1'
 
 prompt_template = """Dưới đây là tin nhắn của khách hàng. Hãy phân loại ý định (intent) của tin nhắn này.
 ### Tin nhắn:
