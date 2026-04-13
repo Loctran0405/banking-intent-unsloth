@@ -1,34 +1,42 @@
 import os
 import pandas as pd
 from datasets import load_dataset
+from sklearn.model_selection import train_test_split
 
 def main():
     print("Đang tải dataset BANKING77...")
-    # Tạo thư mục nếu chưa có
     os.makedirs("sample_data", exist_ok=True)
     
-    # Tải dataset gốc
-    dataset = load_dataset("PolyAI/banking77")
+    # 1. Tải dataset gốc chuẩn từ Hugging Face
+    dataset = load_dataset("PolyAI/banking77", trust_remote_code=True)
     
-    # Lấy hàm chuyển từ nhãn số (0, 1, 2...) sang nhãn chữ (ví dụ: card_lost)
+    # Lấy hàm map nhãn (từ số sang chữ, ví dụ: 0 -> card_arrival)
     int2str = dataset['train'].features['label'].int2str
     
-    # Lấy subset (1500 cho train, 300 cho test) để train nhanh trên T4
-    train_ds = dataset['train'].shuffle(seed=42).select(range(1500))
-    test_ds = dataset['test'].shuffle(seed=42).select(range(300))
+    # Gộp toàn bộ train và test lại để chia lại từ đầu cho chuẩn
+    df_train = dataset['train'].to_pandas()
+    df_test = dataset['test'].to_pandas()
+    df_all = pd.concat([df_train, df_test], ignore_index=True)
     
-    # Chuyển sang Pandas DataFrame
-    df_train = train_ds.to_pandas()
-    df_test = test_ds.to_pandas()
+    # 2. Chia tập Train/Test dùng Stratify (Đảm bảo đủ 77 intents)
+    # Lấy đúng 1500 câu train và 300 câu test cho nhẹ máy
+    train_df, test_df = train_test_split(
+        df_all, 
+        train_size=1500, 
+        test_size=300, 
+        stratify=df_all['label'], # Chia đều đặn các nhóm ý định
+        random_state=42
+    )
     
-    # Đổi nhãn số thành nhãn chữ cho dễ học
-    df_train['label'] = df_train['label'].apply(int2str)
-    df_test['label'] = df_test['label'].apply(int2str)
+    # 3. Đổi nhãn số thành nhãn chữ cho LLM dễ học
+    train_df['label'] = train_df['label'].apply(int2str)
+    test_df['label'] = test_df['label'].apply(int2str)
     
-    # Lưu file
-    df_train.to_csv("sample_data/train.csv", index=False)
-    df_test.to_csv("sample_data/test.csv", index=False)
-    print("Đã lưu dữ liệu thành công vào thư mục sample_data/")
+    # 4. Chỉ giữ lại 2 cột cần thiết và lưu file
+    train_df[['text', 'label']].to_csv("sample_data/train.csv", index=False)
+    test_df[['text', 'label']].to_csv("sample_data/test.csv", index=False)
+    
+    print(f"Đã lưu thành công: Train ({len(train_df)} mẫu), Test ({len(test_df)} mẫu).")
 
 if __name__ == "__main__":
     main()
