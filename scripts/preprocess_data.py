@@ -20,10 +20,10 @@ def main():
     df_all = pd.concat([df_train, df_test], ignore_index=True)
     
     # 2. Chia tập Train/Test dùng Stratify (Đảm bảo đủ 77 intents)
-    # Lấy đúng 1500 câu train và 300 câu test cho nhẹ máy
+    # Lấy đúng 3200 câu train và 500 câu test cho nhẹ máy
     train_df, test_df = train_test_split(
         df_all, 
-        train_size=2500, 
+        train_size=3200, 
         test_size=500, 
         stratify=df_all['label'], # Chia đều đặn các nhóm ý định
         random_state=42
