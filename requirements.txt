@@ -1,6 +1,8 @@
 unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
-transformers>=4.51.3,<5.0.0
-trl>=0.18.2,<0.24.0
+# transformers>=4.51.3,<5.0.0
+# trl>=0.18.2,<0.24.0
+transformers==4.51.3
+trl==0.20.0
 datasets
 pandas
 pyyaml
