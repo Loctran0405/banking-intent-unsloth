@@ -23,8 +23,8 @@ def main():
     # Lấy đúng 1500 câu train và 300 câu test cho nhẹ máy
     train_df, test_df = train_test_split(
         df_all, 
-        train_size=1500, 
-        test_size=300, 
+        train_size=2500, 
+        test_size=500, 
         stratify=df_all['label'], # Chia đều đặn các nhóm ý định
         random_state=42
     )
