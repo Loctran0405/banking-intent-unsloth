@@ -10,11 +10,11 @@ prompt_template = """Dưới đây là tin nhắn của khách hàng. Hãy phân
 
 class IntentClassification:
     def __init__(self, model_path):
-        # 1. Đọc file config thông qua biến model_path
+        # Đọc file config thông qua biến model_path
         with open(model_path, "r") as f:
             self.config = yaml.safe_load(f)
             
-        # 2. Tải model đã train
+        # Tải model đã train
         print("Đang tải model để suy luận...")
         self.model, self.tokenizer = FastLanguageModel.from_pretrained(
             model_name = self.config["model_path"],
@@ -35,7 +35,6 @@ class IntentClassification:
         outputs = self.model.generate(**inputs, max_new_tokens=64, use_cache=True)
         result = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
         
-        # Cắt bỏ phần râu ria, chỉ lấy nhãn (label)
         predicted_label = result.split("### Ý định:\n")[-1].strip()
         return predicted_label
 
@@ -75,7 +74,7 @@ if __name__ == "__main__":
     try:
         df = pd.read_csv(test_file)
         total_samples = len(df)
-        correct_count = 0  # Biến đếm số câu đoán đúng
+        correct_count = 0  
         
         print("\n" + "="*50)
         print(f"BẮT ĐẦU DỰ ĐOÁN TRÊN TOÀN BỘ {total_samples} CÂU")

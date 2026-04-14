@@ -1,5 +1,4 @@
 # Đường dẫn này trỏ tới thư mục chứa model sau khi train
 model_path: "outputs/banking_intent_model"
-# Thêm đường dẫn tới file test
 test_data_path: "sample_data/test.csv"
 max_seq_length: 256
