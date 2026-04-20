@@ -83,12 +83,6 @@ os.environ["WANDB_DISABLED"] = "true"
 !pip install -r requirements.txt
 ```
 
-#### Bước 2: Cài Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
 ## Huấn Luyện Model
 
 ### Dùng Kaggle
@@ -97,7 +91,7 @@ pip install -r requirements.txt
 !chmod +x train.sh
 !./train.sh
 ```
-1. ✅ Chạy `preprocess_data.py` → Tải & chuẩn bị dữ liệu
+1. Chạy `preprocess_data.py` → Tải & chuẩn bị dữ liệu
    ### Tự Động Tải & Xử Lý (Kaggle)
    Chạy script xử lý dữ liệu để tải từ Hugging Face và tạo tập train/test:
 ```bash
@@ -120,7 +114,7 @@ pip install -r requirements.txt
    ...
    ```
 
-2. ✅ Chạy `train.py` → Huấn luyện model với config `configs/train.yaml`
+2. Chạy `train.py` → Huấn luyện model với config `configs/train.yaml`
 ```bash
    python scripts/train.py --config configs/train.yaml
 ```
@@ -488,8 +482,6 @@ stratify=df_all['label']  # Đảm bảo mỗi label có 10% train + 10% test
 ## Tài Liệu Tham Khảo
 
 - **Unsloth:** https://github.com/unslothai/unsloth
-- **Llama 3:** https://huggingface.co/meta-llama/Llama-3-8b
-- **BANKING77 Dataset:** https://huggingface.co/datasets/banking77
 - **Hugging Face Transformers:** https://huggingface.co/docs/transformers/
 - **LoRA Paper:** https://arxiv.org/abs/2106.09685
 
